@@ -40,9 +40,7 @@ def validate_prices(df: pd.DataFrame) -> tuple[pd.DataFrame, list[Issue]]:
     change = clean.groupby("symbol")["close"].pct_change()
     for idx in clean[change.abs() > MAX_DAILY_MOVE].index:
         row = clean.loc[idx]
-        issues.append(
-            Issue(row["symbol"], row["trade_date"], "big_jump", f"close moved {change[idx]:.1%}")
-        )
+        issues.append(Issue(row["symbol"], row["trade_date"], "big_jump", f"close moved {change[idx]:.1%}"))
 
     for issue in issues:
         logger.warning("%s | %s | %s | %s", issue.check, issue.symbol, issue.trade_date, issue.detail)

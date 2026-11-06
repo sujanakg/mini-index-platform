@@ -10,9 +10,7 @@ def make_prices(data: dict[str, list]) -> pd.DataFrame:
     rows = []
     for symbol, closes in data.items():
         for i, close in enumerate(closes):
-            rows.append(
-                {"symbol": symbol, "trade_date": date(2026, 10, 1) + timedelta(days=i), "close": close}
-            )
+            rows.append({"symbol": symbol, "trade_date": date(2026, 10, 1) + timedelta(days=i), "close": close})
     return pd.DataFrame(rows)
 
 

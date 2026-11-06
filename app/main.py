@@ -33,9 +33,9 @@ def health(db: Session = Depends(get_db)) -> dict[str, str]:
     """Check that the API is running and can reach the database."""
     try:
         db.execute(text("SELECT 1"))
-    except SQLAlchemyError:
+    except SQLAlchemyError as exc:
         logger.exception("Health check failed: database unreachable")
-        raise HTTPException(status_code=503, detail="Database unavailable")
+        raise HTTPException(status_code=503, detail="Database unavailable") from exc
     return {"status": "ok", "database": "up"}
 
 

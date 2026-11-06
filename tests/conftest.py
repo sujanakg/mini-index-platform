@@ -32,7 +32,7 @@ def client() -> Iterator[TestClient]:
         session.flush()
 
         tcs_closes = [Decimal("100.00"), Decimal("110.00"), Decimal("121.00")]
-        for day, close in zip((1, 2, 3), tcs_closes):
+        for day, close in zip((1, 2, 3), tcs_closes, strict=True):
             session.add(DailyPrice(security_id=tcs.id, trade_date=date(2026, 10, day), close=close))
             session.add(DailyPrice(security_id=infy.id, trade_date=date(2026, 10, day), close=Decimal("200.00")))
 
